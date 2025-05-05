@@ -1,45 +1,104 @@
-﻿string title = "Mary's Candy Shop";
-string divide = "----------------------";
-DateTime dateTime = DateTime.Now;
-int daysSinceOpening = 1;
-decimal todaysProfit = 5.5m;
-bool targetAchieved = false;
+﻿var isMenuRunning = true;
+var products = new List<string>();
 
-string menu = @"Choose one option:
+while (isMenuRunning)
+{
+    PrintHeader();
+
+    var usersChoice = Console.ReadLine().Trim().ToUpper();
+    var menuMessage = "Press any key to go back to menu!";
+
+    switch (usersChoice)
+    {
+        case "A":
+            AddProduct();
+            break;
+        case "D":
+            DeleteProduct();
+            break;
+        case "V":
+            ViewProducts();
+            break;
+        case "U":
+            UpdateProduct();
+            break;
+        case "Q":
+            menuMessage = "Goodbye!";
+            isMenuRunning = false;
+            break;
+        default:
+            Console.WriteLine("Invalid choice. Please try again.");
+            break;
+    }
+    Console.WriteLine(menuMessage);
+    Console.ReadLine();
+    Console.Clear();
+}
+
+
+
+
+
+
+void UpdateProduct()
+{
+    throw new NotImplementedException();
+}
+
+void ViewProducts()
+{
+    throw new NotImplementedException();
+}
+
+void DeleteProduct()
+{
+    throw new NotImplementedException();
+}
+
+void AddProduct()
+{
+    throw new NotImplementedException();
+}
+
+string GetMenu()
+{
+    return
+    @"Choose one option:
 'V' to view products
 'A' to add a product
 'D' to delete a product
-'U' to update a product";
+'U' to update a product
+'Q' to quit the program";
+}
 
-Console.WriteLine($@"
+int GetDaysSinceOpening()
+{
+    var openingDate = new DateTime(2023, 1, 1);
+    TimeSpan timeDifference = DateTime.Now - openingDate;
+
+    return timeDifference.Days;
+}
+
+void PrintHeader()
+{
+    string title = "Mary's Candy Shop";
+    string divide = "--------------------------";
+    DateTime dateTime = DateTime.Now;
+    // var daysSinceOpening = GetDaysSinceOpening();
+    decimal todaysProfit = 5.5m;
+    bool targetAchieved = false;
+    var menu = GetMenu();
+
+
+
+    Console.WriteLine($@"
 {title}
 {divide}
 Today's date: {dateTime}
-Days since opening: {daysSinceOpening}
-Today's profit: {todaysProfit:C}$
+Days since opening: {GetDaysSinceOpening()}
+Today's profit: {todaysProfit}$
 Target achieved: {targetAchieved}
 {divide}
 {menu}
 ");
-Console.ReadLine();
-
-var usersChoice = Console.ReadLine().Trim().ToUpper();
-
-switch (usersChoice)
-{
-    case "A":
-        Console.WriteLine("You chose to add a product.");
-        break;
-    case "V":
-        Console.WriteLine("You chose to view products.");
-        break;
-    case "D":
-        Console.WriteLine("You chose to delete a product.");
-        break;
-    case "U":
-        Console.WriteLine("You chose to update a product.");
-        break;
-    default:
-        Console.WriteLine("Invalid choice. Please try again.");
-        break;
 }
