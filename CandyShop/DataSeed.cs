@@ -8,11 +8,8 @@ internal class DataSeed
 
     void SeedData()
     {
-        for (int i = 0; i < candyNames.Length; i++)
-        {
-            products.Add(i, candyNames[i]);
-        }
+        var productsController = new ProductsController();
+
+        productsController.AddProducts(candyNames.ToList());
     }
-
-
 }

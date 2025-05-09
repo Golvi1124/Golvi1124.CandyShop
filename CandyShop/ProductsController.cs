@@ -8,48 +8,10 @@ namespace CandyShop;
 
 internal class ProductsController
 {
-    void AddProduct()
+    internal List<string> GetProducts()
     {
-        Console.WriteLine("Product name:");
-        var product = Console.ReadLine();
-        var index = products.Count();
-        products.Add(index, product.Trim());
-    }
+        var products = new List<string>();
 
-    void DeleteProduct(string message)
-    {
-        Console.WriteLine(message);
-    }
-
-
-    void UpdateProduct(string message)
-    {
-        Console.WriteLine(message);
-    }
-
-    void SaveProducts()
-    {
-        try
-        {
-            using (StreamWriter outputFile = new StreamWriter(Configuration.docPath))
-            {
-                foreach (KeyValuePair<int, string> product in products)
-                {
-                    outputFile.WriteLine($"{product.Key}, {product.Value}");
-                }
-            }
-            Console.WriteLine("Products saved");
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error saving data: {ex.Message}");
-            Console.WriteLine(divide);
-        }
-    }
-
-    void LoadData()
-    {
         try
         {
             using (StreamReader reader = new(Configuration.docPath))
@@ -60,7 +22,7 @@ internal class ProductsController
                 while (line != null)
                 {
                     string[] parts = line.Split(',');
-                    products.Add(int.Parse(parts[0]), parts[1]);
+                    products.Add(line);
                     line = reader.ReadLine();
                 }
             }
@@ -68,8 +30,63 @@ internal class ProductsController
         catch (Exception ex)
         {
             Console.WriteLine($"Error loading data: {ex.Message}");
-            Console.WriteLine(divide);
+            Console.WriteLine(UserInterface.divide);
+        }
+
+        return products;
+    }
+
+    internal void AddProduct()
+    {
+        Console.WriteLine("Product name:");
+        var product = Console.ReadLine();
+        try
+        {
+            using (StreamWriter outputFile = new StreamWriter(Configuration.docPath))
+            {
+                    outputFile.WriteLine(product.Trim(), true);
+            }
+            Console.WriteLine("Product saved");
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving data: {ex.Message}");
         }
     }
+    internal void AddProducts(List<string> products)
+    {
+        try
+        {
+            using (StreamWriter outputFile = new StreamWriter(Configuration.docPath))
+            {
+                foreach (var product in products)
+                {
+                   outputFile.WriteLine(product.Trim());                    
+                }
+
+            }
+            Console.WriteLine("Products saved");
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving data: {ex.Message}");
+        }
+    }
+
+    internal void DeleteProduct(string message)
+    {
+        Console.WriteLine(message);
+    }
+
+
+    internal void UpdateProduct(string message)
+    {
+        Console.WriteLine(message);
+    }
+
+ 
+
 
 }

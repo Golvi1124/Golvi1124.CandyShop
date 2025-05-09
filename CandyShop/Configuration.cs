@@ -8,5 +8,5 @@ namespace CandyShop;
 
 internal static class Configuration
 {
-    internal static string docPath = @"C:\VSTasks\CandyShop\CandyShop\products.txt";
+    internal static string docPath = @"C:\Code\Source\Repos\CandyShop\products.txt";
 }

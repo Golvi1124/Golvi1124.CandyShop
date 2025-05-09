@@ -11,8 +11,8 @@ internal static class UserInterface
     internal const string divide = "--------------------------";
     internal static void RunMainMenu()
     {
+        var productsController = new ProductsController();
         var isMenuRunning = true;
-
 
         while (isMenuRunning)
         {
@@ -24,20 +24,21 @@ internal static class UserInterface
             switch (usersChoice)
             {
                 case "A":
-                    AddProduct();
+                    productsController.AddProduct();
                     break;
                 case "D":
-                    DeleteProduct();
+                    productsController.DeleteProduct("User chose D");
                     break;
                 case "V":
-                    ViewProducts();
+                    var products = productsController.GetProducts();
+                    ViewProducts(products);
                     break;
                 case "U":
-                    UpdateProduct();
+                    productsController.UpdateProduct("User chose U");
                     break;
                 case "Q":
                     menuMessage = "Goodbye!";
-                    SaveProducts();
+                   // SaveProducts();
                     isMenuRunning = false;
                     break;
                 default:
@@ -51,12 +52,14 @@ internal static class UserInterface
 
     }
 
-    internal static void ViewProducts()
+    internal static void ViewProducts(List<string> products)
     {
-        foreach (KeyValuePair<int, string> product in products)
+        Console.WriteLine(divide);
+        foreach (var product in products)
         {
-            Console.WriteLine($"{product.Key}: {product.Value}");
+            Console.WriteLine(product);
         }
+        Console.WriteLine(divide);
     }
 
     internal static void PrintHeader()
@@ -75,7 +78,7 @@ internal static class UserInterface
 {title}
 {divide}
 Today's date: {dateTime}
-Days since opening: {GetDaysSinceOpening()}
+Days since opening: {Helpers.GetDaysSinceOpening()}
 Today's profit: {todaysProfit}$
 Target achieved: {targetAchieved}
 {divide}
