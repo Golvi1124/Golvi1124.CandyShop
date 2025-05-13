@@ -8,9 +8,9 @@ namespace CandyShop;
 
 internal class ProductsController
 {
-    internal List<string> GetProducts()
+    internal List<Product> GetProducts()
     {
-        var products = new List<string>();
+        var products = new List<Product>();
 
         try
         {
@@ -22,7 +22,13 @@ internal class ProductsController
                 while (line != null)
                 {
                     string[] parts = line.Split(',');
-                    products.Add(line);
+
+                    var product = new Product(int.Parse(parts[0]));
+                    product.Name = parts[1];
+                    product.Price = decimal.Parse(parts[2]);
+
+                    products.Add(product);
+
                     line = reader.ReadLine();
                 }
             }
@@ -38,13 +44,18 @@ internal class ProductsController
 
     internal void AddProduct()
     {
+        var id = GetProducts().Count;
+
         Console.WriteLine("Product name:");
-        var product = Console.ReadLine();
+        var name = Console.ReadLine();
+
+        Console.WriteLine("Product price:");
+        var price = decimal.Parse(Console.ReadLine());
         try
         {
-            using (StreamWriter outputFile = new StreamWriter(Configuration.docPath))
+            using (StreamWriter outputFile = new StreamWriter(Configuration.docPath, true))
             {
-                    outputFile.WriteLine(product.Trim(), true);
+                    outputFile.WriteLine($"{id}, {name}, {price}");
             }
             Console.WriteLine("Product saved");
 
@@ -54,7 +65,7 @@ internal class ProductsController
             Console.WriteLine($"Error saving data: {ex.Message}");
         }
     }
-    internal void AddProducts(List<string> products)
+    internal void AddProducts(List<Product> products)
     {
         try
         {
@@ -62,7 +73,7 @@ internal class ProductsController
             {
                 foreach (var product in products)
                 {
-                   outputFile.WriteLine(product.Trim());                    
+                   outputFile.WriteLine($"{product.Id}, {product.Name}, {product.Price}");                    
                 }
 
             }

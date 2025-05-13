@@ -2,9 +2,20 @@
 
 internal class Product
 {
-    private string name;
+    internal int Id { get; }
+    internal string Name { get; set; }
+    internal decimal Price { get; set; }
 
-    internal string Name
+    public Product (int id)
+    {
+        Id = id;
+    }
+
+   // private string name;
+
+
+
+   /* internal string Name
     {
         get
         {
@@ -23,7 +34,7 @@ internal class Product
         }
     }
 
-    /*
+    
     internal string GetName()
     {
         return name;
