@@ -51,6 +51,8 @@ internal class ProductsController
 
         Console.WriteLine("Product price:");
         var price = decimal.Parse(Console.ReadLine());
+
+
         try
         {
             using (StreamWriter outputFile = new StreamWriter(Configuration.docPath, true))

@@ -1,2 +1,0 @@
-0, Test cake, 12.8
-1, Another Test, 6.66
